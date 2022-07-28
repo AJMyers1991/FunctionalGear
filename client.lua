@@ -61,6 +61,7 @@ CreateThread(function() -- Sets proofs for whatever youre wearing.
 				SetEntityProofs(ped, false, true, false, false, false, true, false, false) --Sets ped as fireproof and steamproof
 			elseif wearingscubagear == 1 and Config.ScubaGear == true then
 				SetEntityProofs(ped, false, false, false, false, false, false, false, true) --Sets ped as drownproof
+				ClearPedTasks(ped) --Stops ped from removing scuba tank
 			elseif wearingbombgear == 1 and Config.BombGear == true then
 				SetEntityProofs(ped, false, true, true, false, false, true, false, false) --Sets ped as explosionproof, fireproof, and steamproof
 			elseif	notwearinggear == 1 then
