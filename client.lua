@@ -3,7 +3,7 @@ local thermalg = 0
 local wearingfiregear = 0
 local wearingscubagear = 0
 local wearingbombgear = 0
-local notwearinggear = 1
+local notwearinggear = 0
 local wearinggearlight = 0
 local gearlight = 0
 SetNightvision(false)
@@ -47,6 +47,9 @@ CreateThread(function() --Determines if wearing fire gear, scuba gear, bomb gear
 				notwearinggear = 0
 			else
 				notwearinggear = 1
+				wearingfiregear = 0
+				wearingscubagear = 0
+				wearingbombgear = 0
             end
         end
     end
@@ -61,12 +64,10 @@ CreateThread(function() -- Sets proofs for whatever youre wearing.
 				SetEntityProofs(ped, false, true, false, false, false, true, false, false) --Sets ped as fireproof and steamproof
 			elseif wearingscubagear == 1 and Config.ScubaGear == true then
 				SetEntityProofs(ped, false, false, false, false, false, false, false, true) --Sets ped as drownproof
-				--ClearPedTasks(ped) --Stops ped from removing scuba tank
 			elseif wearingbombgear == 1 and Config.BombGear == true then
 				SetEntityProofs(ped, false, true, true, false, false, true, false, false) --Sets ped as explosionproof, fireproof, and steamproof
 			elseif	notwearinggear == 1 then
 				SetEntityProofs(ped, false, false, false, false, false, false, false, false) --Removes all proofs
-				SetPlayerMeleeWeaponDamageModifier(ped, 1.0) --Returns melee damage to 100%
 			end
 		end
 	end
@@ -166,15 +167,11 @@ CreateThread(function() -- Detects if you are wearing an undershirt that you can
 		local ismale = IsPedModel(ped,"mp_m_freemode_01")
 		local isfemale = IsPedModel(ped,"mp_f_freemode_01")
 		if DoesEntityExist(ped) and not IsEntityDead(ped) then
-			if ismale then
-				if Undershirt == Config.mscubaundershirt or Undershirt == Config.mfireundershirt then
-					wearinggearlight = 1
-				end
-			elseif isfemale then
-				if Undershirt == Config.fscubaundershirt or Undershirt == Config.ffireundershirt then
-					wearinggearlight = 1
-				end
-			else
+			if wearingfiregear == 1 and notwearinggear == 0 then
+				wearinggearlight = 1
+			elseif wearingscubagear == 1 and notwearinggear == 0 then
+				wearinggearlight = 1
+			elseif notwearinggear == 1 then
 				wearinggearlight = 0
 			end
 		end
@@ -196,6 +193,8 @@ CreateThread(function() -- Lets you press a key to toggle the gear light on or o
 				SetEnableScubaGearLight(ped, false)
 				gearlight = 0
 			elseif wearinggearlight == 0 then
+				gearlight = 0
+				SetEnableScubaGearLight(ped, false)
 				Wait(100)
 			end
 		else
