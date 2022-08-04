@@ -75,7 +75,7 @@ end)
 
 CreateThread(function() --Functional NVGs
     while true do
-        Wait(0)
+        Wait(2)
         if Config.NightVisionGoggles == true and nvg == 0 and IsControlJustPressed(0, Config.goggleKey) then
 			local ped = PlayerPedId()
 			local Hat = GetPedPropIndex(ped, Config.hatpedpropindex)
@@ -116,7 +116,7 @@ end)
 
 CreateThread(function() --Functional Thermal Goggles
     while true do
-        Wait(0)
+        Wait(2)
         if Config.ThermalGoggles == true and thermalg == 0 and IsControlJustPressed(0, Config.goggleKey) then
 			local ped = PlayerPedId()
 			local Hat = GetPedPropIndex(ped, Config.hatpedpropindex)
