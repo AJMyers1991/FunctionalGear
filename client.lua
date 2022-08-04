@@ -11,7 +11,7 @@ SetSeethrough(false)
 
 CreateThread(function() -- Makes your props not fall off when ped takes damage.
 	while true do
-		Wait(0)
+		Wait(15000)
 		local ped = PlayerPedId()
 		if Config.KeepProps == true and DoesEntityExist(ped) and not IsEntityDead(ped) then
 			SetPedCanLosePropsOnDamage(ped, false, 0)
@@ -23,7 +23,7 @@ end)
 
 CreateThread(function() --Determines if wearing fire gear, scuba gear, bomb gear, or no gear.
     while true do
-        Wait(0)
+        Wait(15000)
 		local ped = PlayerPedId()
         if DoesEntityExist(ped) and not IsEntityDead(ped) then
 			local Arms = GetPedDrawableVariation(ped, Config.armspeddrawablevariation)
@@ -57,7 +57,7 @@ end)
 
 CreateThread(function() -- Sets proofs for whatever youre wearing.
 	while true do
-		Wait(0)
+		Wait(15000)
 		local ped = PlayerPedId()
 		if DoesEntityExist(ped) and not IsEntityDead(ped) then
 			if wearingfiregear == 1 and Config.FireGear == true then
@@ -110,8 +110,6 @@ CreateThread(function() --Functional NVGs
 					nvg = 0
 				end
 			end
-		else
-			Wait(100)
 		end
     end
 end)
@@ -153,15 +151,13 @@ CreateThread(function() --Functional Thermal Goggles
 					thermalg = 0
 				end
 			end
-		else
-			Wait(100)
 		end
     end
 end)
 
 CreateThread(function() -- Detects if you are wearing an undershirt that you can control the light of.
 	while true do
-		Wait(0)
+		Wait(15000)
 		local ped = PlayerPedId()
 		local Undershirt = GetPedDrawableVariation(ped, Config.undershirtpeddrawablevariation)
 		local ismale = IsPedModel(ped,"mp_m_freemode_01")
@@ -195,10 +191,7 @@ CreateThread(function() -- Lets you press a key to toggle the gear light on or o
 			elseif wearinggearlight == 0 then
 				gearlight = 0
 				SetEnableScubaGearLight(ped, false)
-				Wait(100)
 			end
-		else
-			Wait(100)
 		end
 	end
 end)
